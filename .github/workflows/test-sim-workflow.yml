@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2026 Alec Delaney
+#
+# SPDX-License-Identifier: MIT
+
+name: Import Memory Check
+
+on: [pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check import memory usage
+      uses: tekktrik/circuitpython-memory-check@main
