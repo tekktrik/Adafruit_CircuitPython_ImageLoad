@@ -7,12 +7,42 @@ name: Check memory of imports
 on: [pull_request]
 
 jobs:
-  check-memory:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - name: Check memory
         id: check-memory
-        uses: tekktrik/circuitpython-memory-check@main
+        uses: tekktrik/circuitpython-memory-check/prepare@main
         with:
           # TODO: Version should be the latest tag eventually
-          version: 10.1.3
+          version: 10.1.4
+  check-memory-new:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Check memory for new changes
+        id: check-new
+        uses: tekktrik/circuitpython-memory-check/analyze@main
+        with:
+          # TODO: Version should be the latest tag eventually
+          version: 10.1.4
+          results-filepath: ./results.json
+  check-memory-prev:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Check memory for existing codebase
+        id: check-prev
+        uses: tekktrik/circuitpython-memory-check/analyze@main
+        with:
+          # TODO: Version should be the latest tag eventually
+          version: 10.1.4
+          branch: main
+          results-filepath: ./original_results.json
+  compare:
+    runs-on: ubuntu-latest
+    needs: [check-memory-new, check-memory-prev]
+    steps:
+      - name: Compare memory differences
+        shell: bash
+        run: echo "Coming soon!"
