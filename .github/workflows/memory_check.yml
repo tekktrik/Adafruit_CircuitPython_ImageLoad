@@ -10,7 +10,7 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
-      - name: Check memory
+      - name: Build simulator firmware
         id: check-memory
         uses: tekktrik/circuitpython-memory-check/prepare@main
         with:
