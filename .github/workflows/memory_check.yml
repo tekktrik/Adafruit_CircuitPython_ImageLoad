@@ -26,7 +26,7 @@ jobs:
         with:
           # TODO: Version should be the latest tag eventually
           version: 10.1.4
-          results-filepath: ./results.json
+          results-filename: results.json
   check-memory-prev:
     runs-on: ubuntu-latest
     needs: prepare
@@ -38,7 +38,7 @@ jobs:
           # TODO: Version should be the latest tag eventually
           version: 10.1.4
           branch: main
-          results-filepath: ./original_results.json
+          results-filename: original_results.json
   compare:
     runs-on: ubuntu-latest
     needs: [check-memory-new, check-memory-prev]
