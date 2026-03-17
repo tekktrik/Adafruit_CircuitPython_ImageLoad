@@ -44,5 +44,8 @@ jobs:
     needs: [check-memory-new, check-memory-prev]
     steps:
       - name: Compare memory differences
-        shell: bash
-        run: echo "Coming soon!"
+        uses: tekktrik/circuitpython-memory-check/compare@main
+        with:
+          results-filename: results.json
+          original-results-filename: original_results.json
+          analysis-results-filename: memory_analysis.txt
