@@ -12,14 +12,14 @@ jobs:
     steps:
       - name: Build simulator firmware
         id: check-memory
-        uses: tekktrik/circuitpython-memory-check/prepare@main
+        uses: tekktrik/circuitpython-memory-check/prepare@dev/updates
   check-memory-new:
     runs-on: ubuntu-latest
     needs: prepare
     steps:
       - name: Check memory for new changes
         id: check-new
-        uses: tekktrik/circuitpython-memory-check/analyze@main
+        uses: tekktrik/circuitpython-memory-check/analyze@dev/updates
         with:
           results-filename: results.json
   check-memory-prev:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Check memory for existing codebase
         id: check-prev
-        uses: tekktrik/circuitpython-memory-check/analyze@main
+        uses: tekktrik/circuitpython-memory-check/analyze@dev/updates
         with:
           branch: main
           results-filename: original_results.json
@@ -37,7 +37,7 @@ jobs:
     needs: [check-memory-new, check-memory-prev]
     steps:
       - name: Compare memory differences
-        uses: tekktrik/circuitpython-memory-check/compare@main
+        uses: tekktrik/circuitpython-memory-check/compare@dev/updates
         with:
           results-filename: results.json
           original-results-filename: original_results.json
